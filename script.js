@@ -1,29 +1,20 @@
-
+// script.js
 
 const quoteContainer = document.getElementById("quote-container");
 const quoteText = document.getElementById("quote");
 const authorText = document.getElementById("author");
 const twitterBtn = document.getElementById("twitter");
 const newQuoteBtn = document.getElementById("new-quote");
-// const loader = document.getElementById("loader"); // Uncomment if you use loader
 
-
-
-// Fetch a new quote from API Ninjas
+// Fetch a new quote from your secure Vercel API route
 async function getQuote() {
-
   try {
-    const response = await fetch(API_URL, {
-      headers: { "X-Api-Key": API_KEY },
-    });
-
+    const response = await fetch("/api/quote"); // Calls serverless function
     const data = await response.json();
     const quote = data[0];
 
-    // Handle empty author
     authorText.innerText = quote.author || "Unknown";
 
-    // Handle long quote styling
     if (quote.quote.length > 100) {
       quoteText.classList.add("long-quote");
     } else {
@@ -36,7 +27,6 @@ async function getQuote() {
     authorText.innerText = "";
     console.error("Error fetching quote:", error);
   }
-  removeLoadingSpinner();
 }
 
 // Tweet Quote
@@ -49,5 +39,5 @@ function tweetQuote() {
 newQuoteBtn.addEventListener("click", getQuote);
 twitterBtn.addEventListener("click", tweetQuote);
 
-// On initial load
+// On load
 getQuote();
