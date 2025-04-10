@@ -14,10 +14,20 @@ body {
     font-family: Monstserrat, sans-serif;
     font-weight: 700;
     text-align: center;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+}
+
+
+main {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-}
+    min-height: 90vh;
+  }
+  
 
 .button-container {
     margin-top: 0px;
@@ -117,6 +127,8 @@ button:active {
     margin-right: 0;
 } */
 
+
+/* 
 #footer {
     position: fixed;
     bottom: 20px;
@@ -138,3 +150,28 @@ button:active {
     color: #dddddd;
     text-decoration: underline;
   }
+ */
+
+#footer {
+    /* position: fixed; */
+    bottom: 20px;
+    margin-top: auto;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #ccc;
+    z-index: 10;
+  }
+  
+  #footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  #footer a:hover {
+    color: #dddddd;
+    text-decoration: underline;
+  }
+ 
