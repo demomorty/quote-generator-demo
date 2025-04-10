@@ -1,45 +1,64 @@
-# Quote Generator (Practice Version)
+
+# 🧠 Quote Generator (Practice Version)
+
+🔗 **Live Demo:** [quote-generator-demo.vercel.app](https://quote-generator-demo.vercel.app)
 
 This is a modified version of the [original project](https://github.com/ymw0331/vanilla-javascript-20-projects/tree/master/001-quote-generator) by [ymw0331](https://github.com/ymw0331).
 
 ## 🔧 What I Changed
 
-- The original API used for fetching quotes was not working, so I replaced it with a working one from [API Ninjas](https://api-ninjas.com/api/quotes).
-- Separated the API key into a `config.js` file for better security (this file is not included in the repo).
-- Cleaned up the code and ensured the quote displays properly when the button is clicked.
+- Replaced the broken quote API with a working one from [API Ninjas](https://api-ninjas.com/api/quotes)
+- Implemented a **Vercel serverless function** (`/api/quote`) to securely fetch quotes using an environment variable for the API key
+- Updated the frontend (`script.js`) to call this internal API route instead of making direct external API calls
+- Added a local fallback quote system using a `local-quotes.js` file if the API fails or the quota is used up
+- Cleaned up structure and added a GitHub link in the UI
 
 ## 📚 What I Learned
 
-- How to make an API call using `fetch()`.
-- How to take JSON data from an API response and display it on the page.
-- How to use basic DOM manipulation (e.g., `innerText`, `querySelector`) to update content dynamically.
-- How to protect API keys in public projects using `.gitignore`.
+- How to secure API keys in front-end projects using Vercel serverless functions
+- How to make internal API calls (`/api/quote`) from the frontend using `fetch()`
+- How to use a local JS file as a fallback for offline/failed API scenarios
+- DOM manipulation with JavaScript
+- Basic styling and layout improvements
 
-## 🔐 How to Use This Project
+## 🚀 How It Works
 
-This project uses the [API Ninjas Quote API](https://api-ninjas.com/api/quotes), which requires an API key.
+- On load or when the "New Quote" button is clicked, the app tries to fetch a quote from `/api/quote`
+- This API route is a Vercel serverless function that contacts the external quote API using a hidden key
+- If the API call fails (due to quota limits or errors), the app loads a random quote from a local fallback array (`local-quotes.js`)
 
-To run the project:
+## 🔐 How to Run Locally
 
-1. Go to https://api-ninjas.com/api/quotes and sign up for a free account.
-2. Get your API key from your profile/dashboard.
-3. Create a new file in the project directory called `config.js`.
-4. Inside `config.js`, add the following:
-
-   ```js
-   const API_KEY = "your-api-key-here";
-   const API_URL = "https://api.api-ninjas.com/v1/quotes";
+1. Clone the repo:
+   ```
+   git clone https://github.com/demomorty/quote-generator-demo.git
    ```
 
-5. In your `index.html`, make sure to include `config.js` **before** `script.js` like this:
+2. Get a free API key from [API Ninjas](https://api-ninjas.com/api/quotes)
 
-   ```html
-   <script src="config.js"></script>
-   <script src="script.js"></script>
-   ```
+3. In your Vercel dashboard, go to **Settings → Environment Variables** and add:
 
-6. Make sure `config.js` is listed in `.gitignore` so it doesn't get uploaded to GitHub.
+   | Key      | Value            |
+   |----------|------------------|
+   | `API_KEY` | your-api-key-here |
 
-## 🔗 Credits
+4. Make sure your file structure looks like this:
+
+```
+quote-generator-demo/
+├── api/
+│   └── quote.js          # serverless function
+├── local-quotes.js       # fallback quote array
+├── script.js
+├── index.html
+├── style.css
+├── .gitignore
+└── README.md
+```
+
+5. Deploy to Vercel or run locally using `live-server` or similar
+
+## 📝 Credits
 
 Original project by [ymw0331](https://github.com/ymw0331), part of the "Vanilla JavaScript 20 Projects" series.
+Modifications by [@demomorty](https://github.com/demomorty)
